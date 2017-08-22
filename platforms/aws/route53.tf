@@ -1,6 +1,6 @@
 data "aws_route53_zone" "tectonic_ext" {
   count = "${var.tectonic_aws_external_vpc_public}"
-  name  = "${var.tectonic_base_domain}"
+  name  = "${aws_route53_zone.extra.name}"
 }
 
 resource "aws_route53_zone" "tectonic_int" {
@@ -14,4 +14,9 @@ resource "aws_route53_zone" "tectonic_int" {
       "KubernetesCluster", "${var.tectonic_cluster_name}",
       "tectonicClusterID", "${module.tectonic.cluster_id}"
     ), var.tectonic_aws_extra_tags)}"
+}
+
+resource "aws_route53_zone" "extra" {
+  count = "${var.tectonic_aws_external_vpc_public}"
+  name = "${var.tectonic_base_domain}"
 }
