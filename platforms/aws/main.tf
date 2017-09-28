@@ -2,6 +2,10 @@ provider "aws" {
   region = "${var.tectonic_aws_region}"
 }
 
+provider "ignition" {
+  version = "0.1.0"
+}
+
 data "aws_availability_zones" "azs" {}
 
 module "vpc" {
